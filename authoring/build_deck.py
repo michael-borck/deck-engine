@@ -125,7 +125,7 @@ def wrap_body(out: str) -> str:
 
 def md_to_html(md: str) -> str:
     proc = subprocess.run(
-        ["pandoc", "-f", PANDOC_FROM, "-t", "html5", "--wrap=none", "--syntax-highlighting=none"],
+        ["pandoc", "-f", PANDOC_FROM, "-t", "html5", "--wrap=none", "--no-highlight"],
         input=md,
         text=True,
         capture_output=True,
