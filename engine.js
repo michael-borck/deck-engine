@@ -75,7 +75,10 @@
       : defaultOrient;
   };
   var sizeOf = function (sl) { return sizes[orientOf(sl)] || sizes[defaultOrient]; };
-  slides.forEach(function (sl) { sl.dataset.orientation = orientOf(sl); });
+  slides.forEach(function (sl) {
+    if (sl.dataset.orientation) sl.dataset.authoredOrientation = sl.dataset.orientation;
+    else sl.dataset.orientation = defaultOrient;
+  });
   var chStart = chapters.map(function (_, c) {
     return slides.findIndex(function (sl) { return chOf(sl) === c; });
   });
@@ -235,6 +238,23 @@
     if (n >= 0 && n < slides.length) { i = n; s = minOf(slides[i]); render(); }
   }
 
+  /* ---------- live orientation ---------- */
+  function toggleSlideOrientation() {
+    var sl = slides[i];
+    var next = orientOf(sl) === 'portrait' ? 'landscape' : 'portrait';
+    sl.dataset.orientation = next;
+    render();
+    say('This slide: ' + next + '. Press O to reset the deck.');
+  }
+  function toggleDeckOrientation() {
+    defaultOrient = defaultOrient === 'portrait' ? 'landscape' : 'portrait';
+    slides.forEach(function (sl) {
+      sl.dataset.orientation = sl.dataset.authoredOrientation || defaultOrient;
+    });
+    render();
+    say('Deck default: ' + defaultOrient + '. Press o to rotate one slide.');
+  }
+
   /* ---------- exercise timer ---------- */
   var tEl = $('#timer');
   var tm = { slide: -1, left: 0, run: false, last: 0 };
@@ -364,6 +384,8 @@
     }
     else if (k === 'n' || k === 'N') openPresenter();
     else if (k === 'm' || k === 'M') toggleDrawer();
+    else if (k === 'o') toggleSlideOrientation();
+    else if (k === 'O') toggleDeckOrientation();
     else if (k === 't' || k === 'T') toggleTimer();
     else if (k === 'r' || k === 'R') resetTimer();
     else if (k === 'b' || k === 'B' || k === '.') $('#blank').classList.toggle('on');

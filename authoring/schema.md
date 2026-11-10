@@ -207,6 +207,11 @@ The stage resizes and re-fits on every slide change. In portrait, the chapter
 rail moves to the bottom. Print uses CSS named pages so a mixed deck paginates
 at the right size in Chrome and Edge.
 
+At runtime, `o` flips the current slide and `O` flips the deck default. Authored
+per-slide overrides are kept; anything else follows the deck default. The toggle
+is a manual override, not a reflow: content written for a wide canvas can
+overflow in a narrow one.
+
 ## Build
 
 ````bash

@@ -249,6 +249,8 @@ Reference
 | <kbd>R</kbd> | Reset the timer |
 | <kbd>B</kbd> or <kbd>.</kbd> | Blank the screen |
 | <kbd>F</kbd> | Fullscreen |
+| <kbd>o</kbd> | Rotate this slide |
+| <kbd>O</kbd> | Rotate the deck default |
 
 ::: notes
 The same keys work while the presenter window is focused. The chapter number is
@@ -283,12 +285,16 @@ Override one slide
 :::
 
 ::: {.foot}
+**Try it.** <kbd>o</kbd> rotates this slide; <kbd>O</kbd> flips the deck default.
 This deck is pure landscape. The portrait example is on the site.
 :::
 
 ::: notes
 Portrait moves the chapter rail to the bottom and re-fits the type. The engine is
-the same; only the canvas changes.
+the same; only the canvas changes. Lowercase o is a live override for the current
+slide. Uppercase O flips the deck default but keeps any orientation a slide was
+authored with. On a phone, rotating the device is usually the better answer; the
+key is for testing a layout or flipping one dense slide.
 :::
 
 ---

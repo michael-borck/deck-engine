@@ -95,8 +95,9 @@
 
   .facts{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:20px}
   .fact{padding:20px 0;border-top:1px solid var(--hair)}
-  .fact b{display:block;font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--acc)}
+  .fact > b{display:block;font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--acc)}
   .fact span{display:block;margin-top:8px;font-size:15px;line-height:1.45;color:var(--dim)}
+  .fact span b{color:var(--ink);font-weight:600}
 
   .build{margin-top:26px;display:grid;grid-template-columns:1.05fr .95fr;gap:20px;align-items:start}
   pre{
@@ -160,7 +161,7 @@
             <span class="tag landscape">Pure landscape</span>
             <h3>Read the manual</h3>
             <p>A deck that teaches the deck. Press the keys as you go: the presenter,
-              the notes, the timer, blank screen and print.</p>
+              the notes, the timer, orientation, blank screen and print.</p>
             <span class="open">Open deck →</span>
           </div>
           <div class="keys">
@@ -170,6 +171,7 @@
             <span><kbd>R</kbd> reset</span>
             <span><kbd>B</kbd> blank</span>
             <span><kbd>F</kbd> fullscreen</span>
+            <span><kbd>o</kbd><kbd>O</kbd> rotate</span>
             <span><kbd>←</kbd><kbd>→</kbd> move</span>
             <span><kbd>1</kbd>–<kbd>3</kbd> chapters</span>
           </div>
@@ -214,12 +216,24 @@
           <span>A rail on the left in landscape, along the bottom in portrait, one accent per chapter.</span>
         </div>
         <div class="fact">
-          <b>Presenter</b>
-          <span>Notes, next slide, elapsed time and the exercise timer in a second window.</span>
+          <b>Presenter &amp; timer</b>
+          <span>Notes, next slide, elapsed time and the countdown in a second window.</span>
         </div>
         <div class="fact">
-          <b>Print</b>
-          <span>One slide per page, every step revealed, mixed orientations paginated at their own size.</span>
+          <b>Markdown &amp; reveals</b>
+          <span>YAML front matter, notes, reveal steps and spotlight; raw HTML/SVG when a slide needs it.</span>
+        </div>
+        <div class="fact">
+          <b>Pandoc build</b>
+          <span><b>authoring/build_deck.py</b> turns the source into one HTML file. No runtime dependencies.</span>
+        </div>
+        <div class="fact">
+          <b>Custom CSS</b>
+          <span>Theme tokens plus an optional <b>custom.css</b> per deck for the one-off layouts.</span>
+        </div>
+        <div class="fact">
+          <b>Portrait, landscape, print</b>
+          <span>Per-slide orientation, and one slide per page with every step revealed.</span>
         </div>
       </div>
     </section>

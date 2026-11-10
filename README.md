@@ -49,8 +49,9 @@ Requires `pandoc` and `PyYAML` for the Markdown build. The engine itself needs
 nothing.
 
 Keys: Right/Space next · Left back · `1..N` chapters · `N` presenter · `M`
-notes · `T` timer · `R` reset · `B` blank · `F` fullscreen. `?print` lays out
-every slide for PDF export.
+notes · `T` timer · `R` reset · `o` rotate this slide · `O` rotate the deck
+default · `B` blank · `F` fullscreen. `?print` lays out every slide for PDF
+export.
 
 ## Check
 
