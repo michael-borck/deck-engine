@@ -64,25 +64,17 @@ them.
 
 ## Demo site
 
-Live now: <https://michael-borck.github.io/deck-engine/>
-
-Intended domain: <https://deck-engine.borck.dev>
+Live: <https://deck-engine.borck.dev/>
 
 GitHub Pages builds every example and the landing page on each push to `main`.
 The workflow is [`.github/workflows/pages.yml`](.github/workflows/pages.yml):
 it installs pandoc, builds the examples, assembles `_site/` and deploys it.
 
-The `CNAME` file records the intended domain. With an Actions deployment the
-custom domain must also be set in **Settings → Pages**; the file alone is not
-enough.
+The custom domain is configured:
 
-On Cloudflare:
-
-- CNAME `deck-engine` → `michael-borck.github.io`, **DNS only** (grey cloud)
-- Then GitHub: Settings → Pages → Custom domain, `deck-engine.borck.dev`, save,
-  and enable HTTPS
-- Or run:
-  `gh api -X PUT repos/michael-borck/deck-engine/pages -f cname=deck-engine.borck.dev -F https_enforced=true`
+- Cloudflare: CNAME `deck-engine` → `michael-borck.github.io`, DNS only
+- GitHub Pages: custom domain `deck-engine.borck.dev`, HTTPS enforced
+- `CNAME` records the domain for the deploy artifact
 
 Only `deck.md` and an optional `custom.css` are committed. `deck.html` is
 generated and ignored. The landing page is `index.html` at the repo root.
