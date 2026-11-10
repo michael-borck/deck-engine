@@ -62,6 +62,22 @@ It builds every example, checks the Markdown mapping and the `--public` strip.
 The example HTML files are generated and ignored by git; run the build to open
 them.
 
+## Demo site
+
+<https://deck-engine.borck.dev>
+
+GitHub Pages builds every example and the landing page on each push to `main`.
+The workflow is [`.github/workflows/pages.yml`](.github/workflows/pages.yml):
+it installs pandoc, builds the examples, assembles `_site/` and deploys it.
+
+The domain is set by the `CNAME` file. On Cloudflare:
+
+- CNAME `deck-engine` → `michael-borck.github.io`, **DNS only** (grey cloud)
+- In GitHub: Settings → Pages → Custom domain, then enable HTTPS
+
+Only `deck.md` and an optional `custom.css` are committed. `deck.html` is
+generated and ignored. The landing page is `index.html` at the repo root.
+
 ## Repo layout
 
 ```text
@@ -71,10 +87,12 @@ theme/tokens.css          colours, type, spacing
 theme/components.css      cards, rows, tables, exercises, reveals
 authoring/build_deck.py   Markdown -> deck HTML
 authoring/schema.md       the source syntax
+index.html                landing page for the demo site
 examples/
   keynote/                reveal, spotlight, portrait, notes
   workshop/               exercise timer, tables, code
   client-course/          noindex, accents, decision card
+  portrait/               portrait by default, no per-slide override
 docs/permission/          the licence permission record
 ```
 

@@ -27,7 +27,7 @@ def build(source: Path, out: Path, public: bool = False) -> str:
 def main() -> None:
     with tempfile.TemporaryDirectory() as tmp:
         tmp_path = Path(tmp)
-        for example in ("keynote", "workshop", "client-course"):
+        for example in ("keynote", "workshop", "client-course", "portrait"):
             src = ROOT / "examples" / example / "deck.md"
             out = tmp_path / f"{example}.html"
             html = build(src, out)

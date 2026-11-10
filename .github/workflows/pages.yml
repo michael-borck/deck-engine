@@ -1,0 +1,71 @@
+name: Deploy demo
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install pandoc and PyYAML
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y pandoc
+          python -m pip install --upgrade pip pyyaml
+
+      - name: Build examples
+        run: bash authoring/build_examples.sh
+
+      - name: Smoke test
+        run: python3 tests/smoke.py
+
+      - name: Assemble site
+        run: |
+          mkdir -p _site
+          touch _site/.nojekyll
+          cp index.html CNAME _site/
+          cp engine.js engine.css _site/
+          cp -R theme _site/
+          for d in examples/*/; do
+            name="$(basename "$d")"
+            mkdir -p "_site/examples/$name"
+            cp "$d/deck.html" "_site/examples/$name/"
+            if [ -f "$d/custom.css" ]; then
+              cp "$d/custom.css" "_site/examples/$name/"
+            fi
+          done
+
+      - uses: actions/configure-pages@v5
+        with:
+          enablement: true
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4
