@@ -1,0 +1,26 @@
+/* theme tokens — change these to re-skin a deck.
+   Default visual language adapted from the "Broken Ladder" deck.
+   Fonts: Domine, Funnel Sans and Nanum Gothic Coding are SIL Open Font Licence.
+   Load them locally if you want them; the fallbacks below work offline. */
+
+:root{
+  --bg:#0A0C10;
+  --stage-bg:#050608;
+  --ink:#ECE7DB;
+  --dim:rgba(236,231,219,.64);
+  --faint:rgba(236,231,219,.32);
+  --hair:rgba(236,231,219,.15);
+  --card:#10131A;
+  --card2:#141821;
+  --acc:#E8B54D;
+  --green:#6CC59A;
+  --amber:#E8B54D;
+  --red:#E5745A;
+
+  --serif:'Domine', Georgia, 'Times New Roman', serif;
+  --sans:'Funnel Sans', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --mono:'Nanum Gothic Coding', ui-monospace, 'SF Mono', Menlo, monospace;
+
+  --radius:12px;
+  --gap:18px;
+}

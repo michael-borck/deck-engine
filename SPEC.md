@@ -1,10 +1,14 @@
 # Deck Engine — Clean-Room Specification
 
-Status: draft for independent implementation
-Version: 0.1
-Date: 2026-10-31
-Spec author: Michael Borck
-Implementation: TBD
+> **Superseded 2026-11-01.** Dylan Davis gave permission to keep using and
+> adapting the original engine. The repository now adapts it with attribution
+> (see `NOTICE.md`). This specification is kept for reference only.
+>
+> Status: draft for independent implementation
+> Version: 0.1
+> Date: 2026-10-31
+> Spec author: Michael Borck
+> Implementation: superseded by the adapted engine
 
 ## 1. Purpose
 

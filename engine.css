@@ -1,0 +1,90 @@
+/* deck-engine — shell, chrome, orientation, print. Colours come from theme/tokens.css. */
+
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{height:100%;background:var(--bg,#0A0C10);overflow:hidden}
+body{font-family:var(--sans,system-ui,sans-serif);color:var(--ink,#ECE7DB);-webkit-font-smoothing:antialiased}
+
+#viewport{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;background:var(--stage-bg,#050608)}
+#stage{position:relative;width:1280px;height:720px;flex:none;background:var(--bg,#0A0C10);overflow:hidden;transform-origin:center center}
+
+/* atmosphere */
+#halo{position:absolute;z-index:1;pointer-events:none;
+  background:radial-gradient(closest-side, color-mix(in srgb, var(--acc,#E8B54D) 7.5%, transparent), transparent 72%);
+  transition:background .6s}
+#stage[data-orientation="landscape"] #halo{left:250px;top:200px;width:940px;height:500px}
+#stage[data-orientation="portrait"] #halo{left:70px;top:260px;width:580px;height:760px}
+#stage::after{content:"";position:absolute;inset:0;z-index:3;pointer-events:none;
+  background:radial-gradient(ellipse 95% 85% at 50% 42%, transparent 58%, rgba(0,0,0,.5))}
+
+/* chrome */
+#counter{position:absolute;top:32px;right:46px;z-index:6;font-family:var(--mono,ui-monospace,monospace);
+  font-size:12.5px;letter-spacing:.16em;color:var(--faint,rgba(236,231,219,.32))}
+#counter b{color:var(--acc,#E8B54D);font-weight:700}
+
+#nav{position:absolute;z-index:6;display:flex}
+#stage[data-orientation="landscape"] #nav{left:46px;top:50%;transform:translateY(-50%);flex-direction:column;gap:25px}
+#stage[data-orientation="portrait"] #nav{left:50%;bottom:38px;transform:translateX(-50%);flex-direction:row;gap:16px;max-width:calc(100% - 80px);flex-wrap:wrap;justify-content:center}
+.nv{display:flex;align-items:center;gap:13px}
+.nv .bar{width:3px;height:17px;border-radius:2px;background:var(--hair,rgba(236,231,219,.15));transition:all .45s;flex:none}
+.nv .lb{font-family:var(--mono,ui-monospace,monospace);font-size:11px;letter-spacing:.15em;color:var(--faint,rgba(236,231,219,.32));transition:color .45s;white-space:nowrap}
+.nv .tm{display:block;font-size:10px;letter-spacing:.12em;opacity:.7;margin-top:3px}
+.nv.done .bar{background:rgba(236,231,219,.45)}
+.nv.done .lb{color:var(--dim,rgba(236,231,219,.64))}
+.nv.cur .bar{background:var(--acc,#E8B54D);box-shadow:0 0 12px color-mix(in srgb, var(--acc,#E8B54D) 60%, transparent)}
+.nv.cur .lb{color:var(--acc,#E8B54D)}
+#stage[data-orientation="portrait"] .nv .bar{width:17px;height:3px}
+
+#timer{position:absolute;z-index:6;font-family:var(--mono,ui-monospace,monospace);font-size:30px;font-weight:700;
+  letter-spacing:.06em;color:var(--acc,#E8B54D);opacity:0;transition:opacity .3s}
+#stage[data-orientation="landscape"] #timer{top:56px;right:46px}
+#stage[data-orientation="portrait"] #timer{top:auto;bottom:100px;left:50%;transform:translateX(-50%)}
+#timer.show{opacity:1}
+#timer.paused{opacity:.45}
+#timer.over{color:var(--red,#E5745A);animation:pulse 1.2s ease-in-out infinite}
+@keyframes pulse{50%{opacity:.35}}
+
+#blank{position:absolute;inset:0;background:#000;z-index:20;opacity:0;pointer-events:none;transition:opacity .3s}
+#blank.on{opacity:1}
+
+/* slides */
+.slide{position:absolute;inset:0;opacity:0;pointer-events:none;transition:opacity .45s ease;z-index:2;
+  display:flex;flex-direction:column}
+.slide[data-orientation="landscape"]{padding:66px 90px 54px 210px}
+.slide[data-orientation="portrait"]{padding:76px 64px 140px}
+.slide.cur{opacity:1;pointer-events:auto}
+aside.notes{display:none}
+
+/* notes drawer (M) and toast: outside the scaled stage, never printed */
+#notes-drawer{position:fixed;left:0;right:0;bottom:0;max-height:42vh;overflow:auto;z-index:30;
+  background:rgba(10,12,16,.96);border-top:1px solid var(--hair,rgba(236,231,219,.15));
+  padding:14px 28px 18px;font:16px/1.5 var(--sans,system-ui,sans-serif);color:var(--ink,#ECE7DB);
+  transform:translateY(100%);transition:transform .25s ease}
+#notes-drawer.on{transform:none}
+#notes-drawer .dh{font-family:var(--mono,ui-monospace,monospace);font-size:12px;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--acc,#E8B54D);margin-bottom:6px}
+#notes-drawer .dh span{color:var(--faint,rgba(236,231,219,.32));margin-left:12px}
+#notes-drawer ul{padding-left:20px;margin:4px 0}
+#notes-drawer li{margin:4px 0}
+#notes-drawer p{margin:6px 0}
+#deck-toast{position:fixed;left:50%;bottom:28px;transform:translate(-50%,20px);z-index:31;max-width:760px;
+  background:var(--card2,#141821);border:1px solid var(--hair,rgba(236,231,219,.15));border-radius:10px;
+  padding:12px 18px;font:15px/1.45 var(--sans,system-ui,sans-serif);color:var(--ink,#ECE7DB);
+  opacity:0;pointer-events:none;transition:opacity .25s,transform .25s}
+#deck-toast.on{opacity:1;transform:translate(-50%,0)}
+
+/* print / PDF: one slide per page, every step revealed.
+   Named pages let a mixed landscape/portrait deck paginate at the right size in Chrome/Edge. */
+body.print{overflow:visible;height:auto;background:var(--bg,#0A0C10)}
+body.print #viewport{position:static;display:block;background:none}
+body.print #stage{transform:none!important;width:auto;height:auto;overflow:visible;background:none}
+body.print #stage::after,body.print #halo,body.print #nav,body.print #counter,body.print #timer,body.print #blank{display:none}
+body.print .slide{position:relative;opacity:1;overflow:hidden;background:var(--bg,#0A0C10);
+  break-after:page;transition:none}
+body.print .slide[data-orientation="portrait"]{page:port}
+body.print .slide[data-orientation="landscape"]{page:land}
+body.print .slide *{transition:none!important}
+body.print #notes-drawer,body.print #deck-toast{display:none}
+
+@media (prefers-reduced-motion: reduce) {
+  .slide, #halo, .nv .bar, .nv .lb, #blank { transition:none !important; }
+}

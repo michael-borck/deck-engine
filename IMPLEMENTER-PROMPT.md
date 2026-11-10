@@ -1,5 +1,9 @@
 # Implementer prompt
 
+> **Superseded 2026-11-01.** Dylan Davis gave permission to keep using and
+> adapting the original engine, so the clean-room rewrite is no longer needed.
+> See `NOTICE.md` and `README.md`. This prompt is kept for reference.
+
 Copy the block below into a **fresh** coding session. Do not run it in the
 session that wrote `SPEC.md` — that session has seen the prior engine.
 

@@ -1,0 +1,35 @@
+/* One-off layout for this deck. Everything here is optional. */
+
+#stage .slide.matrix .matrix {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2px;
+  margin-top: 28px;
+  background: var(--hair);
+  border: 1px solid var(--hair);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+
+#stage .slide.matrix .cell {
+  padding: 22px;
+  background: var(--card);
+  font-family: var(--mono);
+  font-size: 12px;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: var(--dim);
+}
+
+#stage .slide.matrix .cell.hi {
+  background: color-mix(in srgb, var(--acc) 12%, var(--card));
+  color: var(--acc);
+}
+
+#stage .slide.matrix .matrix > p {
+  padding: 22px;
+  background: var(--bg);
+  font-size: 16px;
+  line-height: 1.45;
+  color: var(--dim);
+}
