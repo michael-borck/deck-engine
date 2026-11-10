@@ -43,6 +43,8 @@ jobs:
           cp index.html CNAME _site/
           cp engine.js engine.css _site/
           cp -R theme _site/
+          mkdir -p _site/authoring
+          cp authoring/schema.md _site/authoring/
           for d in examples/*/; do
             name="$(basename "$d")"
             mkdir -p "_site/examples/$name"
