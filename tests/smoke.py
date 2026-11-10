@@ -27,7 +27,7 @@ def build(source: Path, out: Path, public: bool = False) -> str:
 def main() -> None:
     with tempfile.TemporaryDirectory() as tmp:
         tmp_path = Path(tmp)
-        for example in ("keynote", "workshop", "client-course", "portrait"):
+        for example in ("help", "keynote", "workshop", "client-course", "portrait"):
             src = ROOT / "examples" / example / "deck.md"
             out = tmp_path / f"{example}.html"
             html = build(src, out)
@@ -38,6 +38,10 @@ def main() -> None:
 
         keynote = (tmp_path / "keynote.html").read_text(encoding="utf-8")
         assert 'data-orientation="portrait"' in keynote, "keynote: no portrait slide"
+
+        help_deck = (tmp_path / "help.html").read_text(encoding="utf-8")
+        assert 'data-orientation="portrait"' not in help_deck, "help: should be pure landscape"
+        assert "<kbd>" in help_deck, "help: no keyboard keys"
 
         public = build(ROOT / "examples" / "keynote" / "deck.md", tmp_path / "public.html", public=True)
         assert "<aside class=\"notes\">" not in public, "public: notes left in"

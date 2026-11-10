@@ -60,6 +60,11 @@ text.num{font-family:var(--serif);font-weight:600;fill:var(--acc)}
 .chip.a{border-color:var(--acc);color:var(--acc)}
 .dot{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:8px;vertical-align:1px}
 
+/* keyboard keys */
+kbd{display:inline-block;font-family:var(--mono);font-size:.86em;line-height:1;padding:4px 7px;
+  border-radius:5px;border:1px solid var(--hair);border-bottom-width:2px;background:#0C0F15;
+  color:var(--ink);vertical-align:1px;white-space:nowrap}
+
 /* prose, tables and code produced by Markdown */
 .b p{margin:0 0 12px;font-size:18px;line-height:1.5;color:var(--dim)}
 .b p b,.b p strong{color:var(--ink);font-weight:600}

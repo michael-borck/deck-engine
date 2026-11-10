@@ -66,6 +66,9 @@ them.
 
 Live: <https://deck-engine.borck.dev/>
 
+Start with the help deck: it is a pure-landscape example that teaches every
+shortcut as you press it.
+
 GitHub Pages builds every example and the landing page on each push to `main`.
 The workflow is [`.github/workflows/pages.yml`](.github/workflows/pages.yml):
 it installs pandoc, builds the examples, assembles `_site/` and deploys it.
@@ -90,6 +93,7 @@ authoring/build_deck.py   Markdown -> deck HTML
 authoring/schema.md       the source syntax
 index.html                landing page for the demo site
 examples/
+  help/                   pure landscape; the deck that teaches the deck
   keynote/                reveal, spotlight, portrait, notes
   workshop/               exercise timer, tables, code
   client-course/          noindex, accents, decision card
